@@ -116,6 +116,13 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
     /** List of fragments to be notified about service state changes. */
     private List<JumbleServiceFragment> mServiceFragments = new ArrayList<JumbleServiceFragment>();
 
+
+    /**
+     * A Service is an application component representing either an application's desire to perform a longer-running operation
+     * while not interacting with the user or to supply functionality for other applications to use
+     *
+     * Interface for monitoring the state of an application service
+     */
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -249,6 +256,9 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         mDatabase = new PlumbleSQLiteDatabase(this); // TODO add support for cloud storage
         mDatabase.open();
 
+        /**
+         * Drawer menu Related
+         */
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setOnItemClickListener(this);
@@ -391,6 +401,12 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         return super.onPrepareOptionsMenu(menu);
     }
 
+    /**
+     * The main menu is jumble.xml
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -454,6 +470,9 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
     /**
      * Shows a nice looking setup wizard to guide the user through the app's settings.
      * Will do nothing if it isn't the first launch.
+     *
+     * Generate certificate
+     *
      */
     private void showSetupWizard() {
         // Prompt the user to generate a certificate.
@@ -483,7 +502,10 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
     }
 
     /**
-     * Loads a fragment from the drawer.
+     * Loads a fragment from the drawer
+     *
+     * Will be loaded in the main frame fragment: content_frame
+     *
      */
     private void loadDrawerFragment(int fragmentId) {
         Class<? extends Fragment> fragmentClass = null;

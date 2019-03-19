@@ -16,6 +16,8 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
+<!--Call the app bar menu items + and ->-->
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:plumble="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_add_server_item" android:title="@string/add" android:icon="@drawable/ic_action_add_dark" plumble:showAsAction="ifRoom" android:orderInCategory="0" />
