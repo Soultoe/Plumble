@@ -42,6 +42,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.morlunk.jumble.IJumbleService;
 import com.morlunk.jumble.IJumbleSession;
@@ -55,7 +56,11 @@ import com.morlunk.mumbleclient.Settings;
 import com.morlunk.mumbleclient.db.DatabaseProvider;
 import com.morlunk.mumbleclient.util.JumbleServiceFragment;
 
+import java.util.Objects;
+
 public class ChannelListFragment extends JumbleServiceFragment implements OnChannelClickListener, OnUserClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
+
+    MenuItem mute_MenuItem;
 
 	private IJumbleObserver mServiceObserver = new JumbleObserver() {
         @Override
@@ -207,6 +212,17 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         }
     }
 
+
+    /**
+     * Doc comprehension: Gab
+     *
+     * Update the design of the button
+     *      Mute / unmute
+     *      Deafen / undeafen
+     *
+     * @param menu
+     */
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -231,12 +247,23 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         }
     }
 
+    /**
+     * Doc comprehension: Gab
+     *
+     * Create the Options Menu for this fragment
+     *
+     * @param menu
+     * @param inflater
+     */
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_channel_list, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        mute_MenuItem = menu.findItem(R.id.menu_mute_button);
 
         final SearchView searchView = (SearchView)MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -273,14 +300,21 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         });
     }
 
-    @Override
+    /**
+     * Doc comprehension: Gab
+     *
+     * Mute or not user depending on button press
+     *
+     * */
+
+     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (getService() == null || !getService().isConnected())
             return super.onOptionsItemSelected(item);
 
         IJumbleSession session = getService().getSession();
         switch (item.getItemId()) {
-            case R.id.menu_mute_button: {
+               case R.id.menu_mute_button: {
                 IUser self = session.getSessionUser();
 
                 boolean muted = !self.isSelfMuted();
@@ -289,6 +323,8 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
                 session.setSelfMuteDeafState(muted, deafened);
 
                 getActivity().supportInvalidateOptionsMenu();
+
+                permanentMute();
                 return true;
             }
             case R.id.menu_deafen_button: {
@@ -313,6 +349,24 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void permanentMute(){
+
+        //Mute someone
+        IJumbleSession session = getService().getSession();
+        IUser self = session.getSessionUser();
+
+        boolean muted = !self.isSelfMuted();
+        boolean deafened = self.isSelfDeafened();
+        muted = true;
+        System.out.println("muted " + muted);
+        System.out.println("deafened" + deafened);
+        session.setSelfMuteDeafState(muted, deafened);
+
+        // remove mute button from menu
+        // doesn't work at the moment
+        mute_MenuItem.setVisible(false);
     }
 
     private void setupChannelList() throws RemoteException {

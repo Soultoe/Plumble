@@ -91,7 +91,14 @@ import java.util.List;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
-public class PlumbleActivity extends ActionBarActivity implements ListView.OnItemClickListener,
+/**
+ * Doc comprehension: Gab
+ *
+ * Main activity file
+ *
+ * */
+
+ public class PlumbleActivity extends ActionBarActivity implements ListView.OnItemClickListener,
         FavouriteServerListFragment.ServerConnectHandler, JumbleServiceProvider, DatabaseProvider,
         SharedPreferences.OnSharedPreferenceChangeListener, DrawerAdapter.DrawerDataProvider,
         ServerEditFragment.ServerEditListener {
@@ -257,6 +264,8 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         mDatabase.open();
 
         /**
+         * Doc comprehension: Gab
+         *
          * Drawer menu Related
          */
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -402,6 +411,8 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
     }
 
     /**
+     * Doc comprehension: Gab
+     *
      * The main menu is jumble.xml
      *
      * @param menu
@@ -502,6 +513,8 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
     }
 
     /**
+     * Doc comprehension: Gab
+     *
      * Loads a fragment from the drawer
      *
      * Will be loaded in the main frame fragment: content_frame
