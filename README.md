@@ -18,21 +18,21 @@ Building on GNU/Linux
 	
 	--> https://developer.android.com/studio/?gclid=Cj0KCQjwpsLkBRDpARIsAKoYI8yed-jly_3d_67jJc5ZfWnmp2dkxOfweEgRz4rK2OutzwuMbzPDMawaArXiEALw_wcB
 
-2. extract to /usr/local
+	2. extract to /usr/local
 	
-3. cd android-studios/bin
+	3. cd android-studios/bin
 
 	--> ./studio.sh
 
-4. Install all default parameters
+	4. Install all default parameters
 
-5. Go to tools --> SDK Manager
+	5. Go to tools --> SDK Manager
 
 	--> install SDK platform lollipop (21)
 
-6. [NOT IN ANDROID STUDIOS] open terminal --> sudo apt install lib32stdc++6
+	6. [NOT IN ANDROID STUDIOS] open terminal --> sudo apt install lib32stdc++6
 
-7. [NOT IN ANDROID STUDIOS] open terminal:
+	7. [NOT IN ANDROID STUDIOS] open terminal:
 
 	--> mkdir project
 	--> git init
@@ -40,7 +40,7 @@ Building on GNU/Linux
 	--> git pull origin master
 	--> git submodule update --init --recursive
 
-8. in project folder open project/libraries/Jumble/build.gradle
+	8. in project folder open project/libraries/Jumble/build.gradle
 
 	--> comment the function that begins by // Trigger NDK build on java compilation task.
 	--> replace with: task ndkBuild(type: Exec) {
@@ -52,23 +52,23 @@ Building on GNU/Linux
         }
     }
 
-9. Download NDK build 15c
+	9. Download NDK build 15c
 
 	--> https://developer.android.com/ndk/downloads/older_releases.html
 
-10. Extract to /home/[username]/Android/Sdk/ndk-bundle
+	10. Extract to /home/[username]/Android/Sdk/ndk-bundle
 	
 	--> You might have to mkdir ndk-bundle first
 	--> Make sure the files are at the root of the folder, no intermediary folders
 
-11.  Go to file --> project structure --> NDK location : /home/[USERNAME]/Android/Sdk/ndk-bundle
+	11.  Go to file --> project structure --> NDK location : /home/[USERNAME]/Android/Sdk/ndk-bundle
 
-12. Go back to project root:
+	12. Go back to project root:
 	--> ./gradlew assembleDebug
 
-13. The project should build successfully now!
+	13. The project should build successfully now!
 
-14. To run the emulator you may have to do the following
+	14. To run the emulator you may have to do the following
 	chmod 777 /dev/kvm
 
 Inter-process communication
