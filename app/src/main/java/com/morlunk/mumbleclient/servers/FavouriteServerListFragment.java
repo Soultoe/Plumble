@@ -112,24 +112,25 @@ public class FavouriteServerListFragment extends Fragment implements OnItemClick
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_add_server_item:
+            /*case R.id.menu_add_server_item:
                 addServer();
-                return true;
+                return true;*/
             case R.id.menu_add_server_new:
                 addServer_new();
                 return true;
-            case R.id.menu_quick_connect:
+            /*case R.id.menu_quick_connect:
                 ServerEditFragment.createServerEditDialog(getActivity(), null, ServerEditFragment.Action.CONNECT_ACTION, true,false)
                         .show(getFragmentManager(), "serverInfo");
-                return true;
+                return true;*/
         }
+        //addServer_new();
         return super.onOptionsItemSelected(item);
     }
 
-    public void addServer() {
+    /*public void addServer() {
         ServerEditFragment.createServerEditDialog(getActivity(), null, ServerEditFragment.Action.ADD_ACTION, false,false)
                 .show(getFragmentManager(), "serverInfo");
-    }
+    }*/
 
     public void editServer(Server server) {
         ServerEditFragment.createServerEditDialog(getActivity(), server, ServerEditFragment.Action.EDIT_ACTION, false,false)
@@ -137,7 +138,7 @@ public class FavouriteServerListFragment extends Fragment implements OnItemClick
     }
 
     public void addServer_new() {
-        ServerEditFragment.createServerEditDialog(getActivity(), null, ServerEditFragment.Action.ADD_ACTION, true,true)
+        ServerEditFragment.createServerEditDialog(getActivity(), null, ServerEditFragment.Action.ADD_ACTION_NEW, true,true)
                 .show(getFragmentManager(), "serverInfo");
     }
 

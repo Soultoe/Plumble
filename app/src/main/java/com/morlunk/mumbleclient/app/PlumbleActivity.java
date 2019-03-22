@@ -800,7 +800,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
     @Override
     public void onServerEdited(ServerEditFragment.Action action, Server server) {
         switch (action) {
-            case ADD_ACTION:
+            case ADD_ACTION_NEW:
                 mDatabase.addServer(server);
                 loadDrawerFragment(DrawerAdapter.ITEM_FAVOURITES);
                 break;

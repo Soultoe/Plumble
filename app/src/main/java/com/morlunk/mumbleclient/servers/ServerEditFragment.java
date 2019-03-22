@@ -109,11 +109,12 @@ public class ServerEditFragment extends DialogFragment {
 
         String actionName;
         switch (getAction()) {
-            case ADD_ACTION:
+            /*case ADD_ACTION:
                 actionName = getString(R.string.add);
-                break;
+                break;*/
             case ADD_ACTION_NEW:
                 actionName = getString(R.string.add);
+                add_new = true;
                 break;
             case EDIT_ACTION:
                 actionName = getString(R.string.edit);
@@ -159,7 +160,6 @@ public class ServerEditFragment extends DialogFragment {
             ((ViewGroup) addressLabel.getParent()).removeView(addressLabel);
             ((ViewGroup) mHostEdit.getParent()).removeView(mHostEdit);
             ((ViewGroup) mPortEdit.getParent()).removeView(mPortEdit);
-            add_new = true;
         }
 
         // Fixes issues with text colour on light themes with pre-honeycomb devices.
@@ -253,7 +253,7 @@ public class ServerEditFragment extends DialogFragment {
     public enum Action {
         CONNECT_ACTION,
         EDIT_ACTION,
-        ADD_ACTION,
+        //ADD_ACTION,
         ADD_ACTION_NEW
     }
 }
