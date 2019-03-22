@@ -55,7 +55,15 @@ import java.util.List;
  * An extension of the Jumble service with some added Plumble-exclusive non-standard Mumble features.
  * Created by andrew on 28/07/13.
  */
-public class PlumbleService extends JumbleService implements
+
+/**
+ * Doc comprehension: Gab
+ *
+ * Main implementation file
+ *
+ * */
+
+ public class PlumbleService extends JumbleService implements
         SharedPreferences.OnSharedPreferenceChangeListener,
         PlumbleConnectionNotification.OnActionListener,
         PlumbleReconnectNotification.OnActionListener, IPlumbleService {
