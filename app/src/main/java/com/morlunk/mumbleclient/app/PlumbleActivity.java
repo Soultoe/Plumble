@@ -318,7 +318,7 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
 
                 // Open a dialog prompting the user to connect to the Mumble server.
                 DialogFragment fragment = (DialogFragment) ServerEditFragment.createServerEditDialog(
-                        PlumbleActivity.this, server, ServerEditFragment.Action.CONNECT_ACTION, true);
+                        PlumbleActivity.this, server, ServerEditFragment.Action.CONNECT_ACTION, true,true);
                 fragment.show(getSupportFragmentManager(), "url_edit");
             } catch (MalformedURLException e) {
                 Toast.makeText(this, getString(R.string.mumble_url_parse_failed), Toast.LENGTH_LONG).show();
@@ -338,6 +338,7 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         mDrawerToggle.syncState();
     }
 
+    //si on revient au menu principal
     @Override
     protected void onResume() {
         super.onResume();
@@ -345,6 +346,7 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         bindService(connectIntent, mConnection, 0);
     }
 
+    //sauvegarde l'état actuel
     @Override
     protected void onPause() {
         super.onPause();
@@ -371,6 +373,7 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         super.onDestroy();
     }
 
+    //appelé avt que le menu s'affiche
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem disconnectButton = menu.findItem(R.id.action_disconnect);
@@ -391,6 +394,7 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         return super.onPrepareOptionsMenu(menu);
     }
 
+    //créé le menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -398,12 +402,14 @@ public class PlumbleActivity extends ActionBarActivity implements ListView.OnIte
         return true;
     }
 
+    //appelle l'item select dans les options
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(mDrawerToggle.onOptionsItemSelected(item))
             return true;
 
         switch (item.getItemId()) {
+            //qqpart ds un xml objet xml avec id action disconnect
             case R.id.action_disconnect:
                 getService().disconnect();
                 return true;
