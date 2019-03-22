@@ -337,7 +337,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
 
                 // Open a dialog prompting the user to connect to the Mumble server.
                 DialogFragment fragment = (DialogFragment) ServerEditFragment.createServerEditDialog(
-                        PlumbleActivity.this, server, ServerEditFragment.Action.CONNECT_ACTION, true);
+                        PlumbleActivity.this, server, ServerEditFragment.Action.CONNECT_ACTION, true,true);
                 fragment.show(getSupportFragmentManager(), "url_edit");
             } catch (MalformedURLException e) {
                 Toast.makeText(this, getString(R.string.mumble_url_parse_failed), Toast.LENGTH_LONG).show();
@@ -357,6 +357,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
         mDrawerToggle.syncState();
     }
 
+    //si on revient au menu principal
     @Override
     protected void onResume() {
         super.onResume();
@@ -364,6 +365,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
         bindService(connectIntent, mConnection, 0);
     }
 
+    //sauvegarde l'état actuel
     @Override
     protected void onPause() {
         super.onPause();
@@ -390,6 +392,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
         super.onDestroy();
     }
 
+    //appelé avt que le menu s'affiche
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem disconnectButton = menu.findItem(R.id.action_disconnect);
@@ -410,6 +413,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
         return super.onPrepareOptionsMenu(menu);
     }
 
+
     /**
      * Doc comprehension: Gab
      *
@@ -418,6 +422,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
      * @param menu
      * @return
      */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -425,12 +430,14 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
         return true;
     }
 
+    //appelle l'item select dans les options
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(mDrawerToggle.onOptionsItemSelected(item))
             return true;
 
         switch (item.getItemId()) {
+            //qqpart ds un xml objet xml avec id action disconnect
             case R.id.action_disconnect:
                 getService().disconnect();
                 return true;
@@ -793,7 +800,7 @@ import info.guardianproject.netcipher.proxy.OrbotHelper;
     @Override
     public void onServerEdited(ServerEditFragment.Action action, Server server) {
         switch (action) {
-            case ADD_ACTION:
+            case ADD_ACTION_NEW:
                 mDatabase.addServer(server);
                 loadDrawerFragment(DrawerAdapter.ITEM_FAVOURITES);
                 break;

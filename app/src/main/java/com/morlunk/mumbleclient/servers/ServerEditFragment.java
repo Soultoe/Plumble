@@ -26,6 +26,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,12 +39,14 @@ public class ServerEditFragment extends DialogFragment {
     private static final String ARGUMENT_SERVER = "server";
     private static final String ARGUMENT_ACTION = "action";
     private static final String ARGUMENT_IGNORE_TITLE = "ignore_title";
+    private static final String ARGUMENT_IGNORE_EVERYTHING = "ignore_everything";
 
 	private EditText mNameEdit;
 	private EditText mHostEdit;
 	private EditText mPortEdit;
 	private EditText mUsernameEdit;
     private EditText mPasswordEdit;
+    private boolean add_new=false;
 	
 	private ServerEditListener mListener;
 
@@ -57,11 +60,12 @@ public class ServerEditFragment extends DialogFragment {
      */
     public static DialogFragment createServerEditDialog(Context context, Server server,
                                                   Action action,
-                                                  boolean ignoreTitle) {
+                                                  boolean ignoreTitle, boolean ignoreEverything) {
         Bundle args = new Bundle();
         args.putParcelable(ARGUMENT_SERVER, server);
         args.putInt(ARGUMENT_ACTION, action.ordinal());
         args.putBoolean(ARGUMENT_IGNORE_TITLE, ignoreTitle);
+        args.putBoolean(ARGUMENT_IGNORE_EVERYTHING, ignoreEverything);
         return (DialogFragment) Fragment.instantiate(context, ServerEditFragment.class.getName(), args);
     }
 
@@ -105,8 +109,12 @@ public class ServerEditFragment extends DialogFragment {
 
         String actionName;
         switch (getAction()) {
-            case ADD_ACTION:
+            /*case ADD_ACTION:
                 actionName = getString(R.string.add);
+                break;*/
+            case ADD_ACTION_NEW:
+                actionName = getString(R.string.add);
+                add_new = true;
                 break;
             case EDIT_ACTION:
                 actionName = getString(R.string.edit);
@@ -122,13 +130,15 @@ public class ServerEditFragment extends DialogFragment {
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.dialog_server_edit, null, false);
-
         TextView titleLabel = (TextView) view.findViewById(R.id.server_edit_name_title);
+        TextView addressLabel = (TextView) view.findViewById(R.id.address_name_title);
         mNameEdit = (EditText) view.findViewById(R.id.server_edit_name);
         mHostEdit = (EditText) view.findViewById(R.id.server_edit_host);
         mPortEdit = (EditText) view.findViewById(R.id.server_edit_port);
         mUsernameEdit = (EditText) view.findViewById(R.id.server_edit_username);
         mUsernameEdit.setHint(settings.getDefaultUsername());
+        mHostEdit.setHint(settings.getDefaultHost());
+        //mPortEdit.setHint(settings.getDefaultPort());
         mPasswordEdit = (EditText) view.findViewById(R.id.server_edit_password);
 
         Server oldServer = getServer();
@@ -141,8 +151,15 @@ public class ServerEditFragment extends DialogFragment {
         }
 
         if (shouldIgnoreTitle()) {
-            titleLabel.setVisibility(View.GONE);
-            mNameEdit.setVisibility(View.GONE);
+            ((ViewGroup) titleLabel.getParent()).removeView(titleLabel);
+            ((ViewGroup) mNameEdit.getParent()).removeView(mNameEdit);
+        }
+
+        if(shouldIgnoreEverything())
+        {
+            ((ViewGroup) addressLabel.getParent()).removeView(addressLabel);
+            ((ViewGroup) mHostEdit.getParent()).removeView(mHostEdit);
+            ((ViewGroup) mPortEdit.getParent()).removeView(mPortEdit);
         }
 
         // Fixes issues with text colour on light themes with pre-honeycomb devices.
@@ -170,6 +187,12 @@ public class ServerEditFragment extends DialogFragment {
         if (username.equals(""))
             username = mUsernameEdit.getHint().toString();
 
+        if (name.equals(""))
+            name = "Class of "+username;
+
+        if (host.equals(""))
+            host = mHostEdit.getHint().toString();
+
         // Inherit database ID of provided server.
         long id;
         if (getServer() != null) {
@@ -187,10 +210,12 @@ public class ServerEditFragment extends DialogFragment {
      * @return true if the inputted values are valid, false otherwise.
      */
     public boolean validate() {
-        if (mHostEdit.getText().length() == 0) {
+
+        if ((mHostEdit.getText().length()==0)&&(!add_new)){
             mHostEdit.setError(getString(R.string.invalid_host));
             return false;
-        } else if (mPortEdit.getText().length() > 0) {
+        }
+        if (mPortEdit.getText().length() > 0) {
             try {
                 int port = Integer.parseInt(mPortEdit.getText().toString());
                 if (port < 0 || port > 65535) {
@@ -217,6 +242,10 @@ public class ServerEditFragment extends DialogFragment {
         return getArguments().getBoolean(ARGUMENT_IGNORE_TITLE);
     }
 
+    private boolean shouldIgnoreEverything() {
+        return getArguments().getBoolean(ARGUMENT_IGNORE_EVERYTHING);
+    }
+
     public interface ServerEditListener {
         void onServerEdited(Action action, Server server);
     }
@@ -224,6 +253,7 @@ public class ServerEditFragment extends DialogFragment {
     public enum Action {
         CONNECT_ACTION,
         EDIT_ACTION,
-        ADD_ACTION
+        //ADD_ACTION,
+        ADD_ACTION_NEW
     }
 }

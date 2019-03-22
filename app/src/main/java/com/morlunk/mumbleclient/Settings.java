@@ -122,6 +122,12 @@ public class Settings {
     public static final String PREF_DEFAULT_USERNAME = "defaultUsername";
     public static final String DEFAULT_DEFAULT_USERNAME = "Plumble_User"; // funny var name
 
+    public static final String PREF_DEFAULT_HOST = "192.168.1.3";
+    public static final String DEFAULT_DEFAULT_HOST = "192.168.1.3"; // funny var name
+
+    /*public static final String PREF_DEFAULT_PORT = "64738";
+    public static final int DEFAULT_DEFAULT_PORT = 64738;*/
+
     public static final String PREF_FORCE_TCP = "forceTcp";
     public static final Boolean DEFAULT_FORCE_TCP = false;
 
@@ -346,6 +352,14 @@ public class Settings {
     public String getDefaultUsername() {
         return preferences.getString(PREF_DEFAULT_USERNAME, DEFAULT_DEFAULT_USERNAME);
     }
+
+    public String getDefaultHost() {
+        return preferences.getString(PREF_DEFAULT_HOST, DEFAULT_DEFAULT_HOST);
+    }
+
+    /*public int getDefaultPort() {
+        return preferences.getInt(PREF_DEFAULT_PORT,DEFAULT_DEFAULT_PORT);
+    }*/
 
     public boolean isPushToTalkToggle() {
         return preferences.getBoolean(PREF_PTT_TOGGLE, DEFAULT_PTT_TOGGLE);
