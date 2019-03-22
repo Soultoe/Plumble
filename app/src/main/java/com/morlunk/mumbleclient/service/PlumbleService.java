@@ -32,6 +32,7 @@ import android.speech.tts.TextToSpeech;
 import android.view.WindowManager;
 
 import com.morlunk.jumble.Constants;
+import com.morlunk.jumble.IJumbleSession;
 import com.morlunk.jumble.JumbleService;
 import com.morlunk.jumble.exception.AudioException;
 import com.morlunk.jumble.model.IMessage;
@@ -480,6 +481,7 @@ import java.util.List;
             boolean muted = !user.isSelfMuted();
             boolean deafened = user.isSelfDeafened() && muted;
             setSelfMuteDeafState(muted, deafened);
+            permanentMute();
         }
     }
 
@@ -488,7 +490,28 @@ import java.util.List;
         IUser user = getSessionUser();
         if (isConnectionEstablished() && user != null) {
             setSelfMuteDeafState(!user.isSelfDeafened(), !user.isSelfDeafened());
+            permanentMute();
         }
+    }
+
+    public void permanentMute(){
+        //Mute someone
+        IUser self = getSessionUser();
+
+        if(!self.getIsSpeaker()) {
+            boolean muted = !self.isSelfMuted();
+            boolean deafened = self.isSelfDeafened();
+            muted = true;
+            System.out.println("muted " + muted);
+            System.out.println("deafened" + deafened);
+            setSelfMuteDeafState(muted, deafened);
+            self.setAllMuted(false);
+
+            // remove mute button from menu
+            // doesn't work at the moment
+//        mute_MenuItem.setVisible(false);
+        }
+
     }
 
     @Override

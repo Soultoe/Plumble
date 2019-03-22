@@ -357,16 +357,20 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         IJumbleSession session = getService().getSession();
         IUser self = session.getSessionUser();
 
-        boolean muted = !self.isSelfMuted();
-        boolean deafened = self.isSelfDeafened();
-        muted = true;
-        System.out.println("muted " + muted);
-        System.out.println("deafened" + deafened);
-        session.setSelfMuteDeafState(muted, deafened);
+        if(!self.getIsSpeaker()) {
+            boolean muted = !self.isSelfMuted();
+            boolean deafened = self.isSelfDeafened();
+            muted = true;
+            System.out.println("muted " + muted);
+            System.out.println("deafened" + deafened);
+            session.setSelfMuteDeafState(muted, deafened);
+            self.setAllMuted(false);
 
-        // remove mute button from menu
-        // doesn't work at the moment
-        mute_MenuItem.setVisible(false);
+            // remove mute button from menu
+            // doesn't work at the moment
+//        mute_MenuItem.setVisible(false);
+        }
+
     }
 
     private void setupChannelList() throws RemoteException {

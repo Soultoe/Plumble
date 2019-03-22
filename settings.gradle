@@ -22,3 +22,4 @@
 
 
 include ':libraries:Jumble', ':app'
+rootProject.name = 'PlumbleTest'
