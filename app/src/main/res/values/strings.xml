@@ -152,9 +152,9 @@
     <string name="offline">Offline</string>
     <string name="clearChat">Clear Chat</string>
     <string name="connected">Connected</string>
-    <string name="plumbleConnected">Plumble Connected</string>
-    <string name="plumbleConnecting">Plumble Connecting</string>
-    <string name="plumbleDisconnected">Plumble Disconnected</string>
+    <string name="plumbleConnected">Silent Classroom Connected</string>
+    <string name="plumbleConnecting">Silent Classroom Connecting</string>
+    <string name="plumbleDisconnected">Silent Classroom Disconnected</string>
     <string name="lostConnection">Lost connection to the server.</string>
     <string name="resume">Resume</string>
     <string name="channel">Channel</string>
@@ -182,7 +182,7 @@
     <string name="country">Country</string>
     <string name="share">Share</string>
     <string name="description">Description</string>
-    <string name="shareMessage">Join this Mumble server with Plumble! %s</string>
+    <string name="shareMessage">Join this server with Silent Classroom! %s</string>
     <string name="noServerInfo">Ping to fetch info</string>
     <string name="status_notify_muted_and_deafened">Muted and deafened.</string>
     <string name="status_notify_muted">Muted.</string>
