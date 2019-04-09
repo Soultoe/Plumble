@@ -286,7 +286,7 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
                 boolean muted = !self.isSelfMuted();
                 boolean deafened = self.isSelfDeafened();
                 deafened &= muted; // Undeafen if mute is off
-                session.setSelfMuteDeafState(muted, deafened);
+                session.setSelfMuteDeafState(true, deafened);
 
                 getActivity().supportInvalidateOptionsMenu();
                 return true;
@@ -295,7 +295,7 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
                 IUser self = session.getSessionUser();
 
                 boolean deafened = !self.isSelfDeafened();
-                session.setSelfMuteDeafState(deafened, deafened);
+                session.setSelfMuteDeafState(true, deafened);
 
                 getActivity().supportInvalidateOptionsMenu();
                 return true;

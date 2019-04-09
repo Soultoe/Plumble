@@ -480,7 +480,7 @@ import java.util.List;
         if (isConnectionEstablished() && user != null) {
             boolean muted = !user.isSelfMuted();
             boolean deafened = user.isSelfDeafened() && muted;
-            setSelfMuteDeafState(muted, deafened);
+            setSelfMuteDeafState(true, deafened);
             permanentMute();
         }
     }
@@ -489,7 +489,7 @@ import java.util.List;
     public void onDeafenToggled() {
         IUser user = getSessionUser();
         if (isConnectionEstablished() && user != null) {
-            setSelfMuteDeafState(!user.isSelfDeafened(), !user.isSelfDeafened());
+            setSelfMuteDeafState(true, !user.isSelfDeafened());
             permanentMute();
         }
     }
@@ -504,7 +504,7 @@ import java.util.List;
             muted = true;
             System.out.println("muted " + muted);
             System.out.println("deafened" + deafened);
-            setSelfMuteDeafState(muted, deafened);
+            setSelfMuteDeafState(true, deafened);
             self.setAllMuted(false);
 
             // remove mute button from menu
