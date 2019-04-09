@@ -42,7 +42,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.morlunk.jumble.IJumbleService;
 import com.morlunk.jumble.IJumbleSession;
@@ -56,13 +55,9 @@ import com.morlunk.mumbleclient.Settings;
 import com.morlunk.mumbleclient.db.DatabaseProvider;
 import com.morlunk.mumbleclient.util.JumbleServiceFragment;
 
-import java.util.Objects;
-
 public class ChannelListFragment extends JumbleServiceFragment implements OnChannelClickListener, OnUserClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    MenuItem mute_MenuItem;
-
-	private IJumbleObserver mServiceObserver = new JumbleObserver() {
+    private IJumbleObserver mServiceObserver = new JumbleObserver() {
         @Override
         public void onDisconnected(JumbleException e) {
             mChannelView.setAdapter(null);
@@ -79,16 +74,16 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         }
 
         @Override
-		public void onChannelAdded(IChannel channel) {
+        public void onChannelAdded(IChannel channel) {
             mChannelListAdapter.updateChannels();
-			mChannelListAdapter.notifyDataSetChanged();
-		}
+            mChannelListAdapter.notifyDataSetChanged();
+        }
 
-		@Override
-		public void onChannelRemoved(IChannel channel) {
+        @Override
+        public void onChannelRemoved(IChannel channel) {
             mChannelListAdapter.updateChannels();
-			mChannelListAdapter.notifyDataSetChanged();
-		}
+            mChannelListAdapter.notifyDataSetChanged();
+        }
 
         @Override
         public void onChannelStateUpdated(IChannel channel) {
@@ -123,7 +118,7 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         public void onUserTalkStateUpdated(IUser user) {
             mChannelListAdapter.animateUserTalkStateUpdate(user, mChannelView);
         }
-	};
+    };
 
     private BroadcastReceiver mBluetoothReceiver = new BroadcastReceiver() {
         @Override
@@ -133,8 +128,8 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         }
     };
 
-	private RecyclerView mChannelView;
-	private ChannelListAdapter mChannelListAdapter;
+    private RecyclerView mChannelView;
+    private ChannelListAdapter mChannelListAdapter;
     private ChatTargetProvider mTargetProvider;
     private DatabaseProvider mDatabaseProvider;
     private ActionMode mActionMode;
@@ -212,17 +207,6 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         }
     }
 
-
-    /**
-     * Doc comprehension: Gab
-     *
-     * Update the design of the button
-     *      Mute / unmute
-     *      Deafen / undeafen
-     *
-     * @param menu
-     */
-
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -247,23 +231,12 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         }
     }
 
-    /**
-     * Doc comprehension: Gab
-     *
-     * Create the Options Menu for this fragment
-     *
-     * @param menu
-     * @param inflater
-     */
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_channel_list, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-
-        mute_MenuItem = menu.findItem(R.id.menu_mute_button);
 
         final SearchView searchView = (SearchView)MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -300,21 +273,14 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         });
     }
 
-    /**
-     * Doc comprehension: Gab
-     *
-     * Mute or not user depending on button press
-     *
-     * */
-
-     @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (getService() == null || !getService().isConnected())
             return super.onOptionsItemSelected(item);
 
         IJumbleSession session = getService().getSession();
         switch (item.getItemId()) {
-               case R.id.menu_mute_button: {
+            case R.id.menu_mute_button: {
                 IUser self = session.getSessionUser();
 
                 boolean muted = !self.isSelfMuted();
@@ -323,8 +289,6 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
                 session.setSelfMuteDeafState(muted, deafened);
 
                 getActivity().supportInvalidateOptionsMenu();
-
-                permanentMute();
                 return true;
             }
             case R.id.menu_deafen_button: {
@@ -351,28 +315,6 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         return super.onOptionsItemSelected(item);
     }
 
-    public void permanentMute(){
-
-        //Mute someone
-        IJumbleSession session = getService().getSession();
-        IUser self = session.getSessionUser();
-
-        if(!self.getIsSpeaker()) {
-            boolean muted = !self.isSelfMuted();
-            boolean deafened = self.isSelfDeafened();
-            muted = true;
-            System.out.println("muted " + muted);
-            System.out.println("deafened" + deafened);
-            session.setSelfMuteDeafState(muted, deafened);
-            self.setAllMuted(false);
-
-            // remove mute button from menu
-            // doesn't work at the moment
-//        mute_MenuItem.setVisible(false);
-        }
-
-    }
-
     private void setupChannelList() throws RemoteException {
         mChannelListAdapter = new ChannelListAdapter(getActivity(), getService(),
                 mDatabaseProvider.getDatabase(), getChildFragmentManager(),
@@ -381,22 +323,22 @@ public class ChannelListFragment extends JumbleServiceFragment implements OnChan
         mChannelListAdapter.setOnUserClickListener(this);
         mChannelView.setAdapter(mChannelListAdapter);
         mChannelListAdapter.notifyDataSetChanged();
-	}
+    }
 
-	/**
-	 * Scrolls to the passed channel.
-	 */
-	public void scrollToChannel(int channelId) {
-		int channelPosition = mChannelListAdapter.getChannelPosition(channelId);
+    /**
+     * Scrolls to the passed channel.
+     */
+    public void scrollToChannel(int channelId) {
+        int channelPosition = mChannelListAdapter.getChannelPosition(channelId);
         mChannelView.smoothScrollToPosition(channelPosition);
     }
-	/**
-	 * Scrolls to the passed user.
-	 */
-	public void scrollToUser(int userId) {
-		int userPosition = mChannelListAdapter.getUserPosition(userId);
-		mChannelView.smoothScrollToPosition(userPosition);
-	}
+    /**
+     * Scrolls to the passed user.
+     */
+    public void scrollToUser(int userId) {
+        int userPosition = mChannelListAdapter.getUserPosition(userId);
+        mChannelView.smoothScrollToPosition(userPosition);
+    }
 
     private boolean isShowingPinnedChannels() {
         return getArguments().getBoolean("pinned");

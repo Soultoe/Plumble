@@ -84,7 +84,7 @@
     <string name="server_match_not_found">Couldn\'t find server</string>
     <string name="server_match_expand_country">Couldn\'t find any optimal servers in your country. Expand search worldwide?</string>
     <string name="server_match_info">Name: %1$s\nHost: %2$s:%3$d\nUsers: %4$d / %5$d\nVersion: %6$s \nCountry: %7$s \nLatency: %8$d ms</string>
-    <string name="server_match_description">Plumble can automatically find you an empty server, optimizing based on the server\'s location, version, and latency.</string>
+    <string name="server_match_description">We can automatically find you an empty server, optimizing based on the server\'s location, version, and latency.</string>
 
     <!-- Common -->
     <string name="channels">Channels</string>
@@ -104,7 +104,7 @@
     <string name="mute">Mute</string>
     <string name="deafen">Deafen</string>
     <string name="disconnect">Disconnect</string>
-    <string name="disconnectSure">Are you sure you want to disconnect from Mumble?</string>
+    <string name="disconnectSure">Are you sure you want to disconnect from Silent Classroom?</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
     <string name="preferences">Preferences</string>
@@ -209,7 +209,7 @@
     <string name="hint_reason">Reason</string>
     <string name="hint_ptt">Push to Talk</string>
     <string name="hint_ptt_summary">Simply press this button down to talk. Double-tap to toggle it.</string>
-    <string name="hint_server_add">Welcome to Plumble</string>
+    <string name="hint_server_add">Welcome to Silent Classroom</string>
     <string name="hint_server_add_summary">To begin, add a favourite server by pressing the add button on the action bar.</string>
     <string name="hint_switching">Switching Between Views</string>
     <string name="hint_switching_summary">Switch between the chat and channel views by using the buttons in the top left, or swiping.</string>
@@ -224,8 +224,8 @@
     <string name="channel_edit">Edit Channel</string>
     <string name="channel_add">Add Channel</string>
     <string name="tts_failed">TTS failed to initialize</string>
-    <string name="mumble_url_parse_failed">Failed to parse Mumble URL!</string>
-    <string name="first_run_generate_certificate_title">Welcome to Plumble!</string>
+    <string name="mumble_url_parse_failed">Failed to parse URL!</string>
+    <string name="first_run_generate_certificate_title">Welcome to Silent Classroom!</string>
     <string name="first_run_generate_certificate">Generating a certificate is highly recommended, and necessary for connection to some servers.</string>
     <string name="generate">Generate</string>
     <string name="certificate_not_valid">Could not load certificate \'%s\'!</string>
