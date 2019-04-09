@@ -120,7 +120,7 @@ public class Settings {
     public static final String PREF_CERT_ID = "certificateId";
 
     public static final String PREF_DEFAULT_USERNAME = "defaultUsername";
-    public static final String DEFAULT_DEFAULT_USERNAME = "Plumble_User"; // funny var name
+    public static final String DEFAULT_DEFAULT_USERNAME = "Teacher's name"; // funny var name
 
     public static final String PREF_DEFAULT_HOST = "192.168.1.2";
     public static final String DEFAULT_DEFAULT_HOST = "192.168.1.2"; // funny var name

@@ -136,6 +136,7 @@ public class ServerEditFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_server_edit, null, false);
         TextView titleLabel = (TextView) view.findViewById(R.id.server_edit_name_title);
         TextView addressLabel = (TextView) view.findViewById(R.id.address_name_title);
+        TextView passwordLabel =  (TextView) view.findViewById(R.id.server_edit_password_label);
         mNameEdit = (EditText) view.findViewById(R.id.server_edit_name);
         mHostEdit = (EditText) view.findViewById(R.id.server_edit_host);
         mPortEdit = (EditText) view.findViewById(R.id.server_edit_port);
@@ -164,6 +165,9 @@ public class ServerEditFragment extends DialogFragment {
             ((ViewGroup) addressLabel.getParent()).removeView(addressLabel);
             ((ViewGroup) mHostEdit.getParent()).removeView(mHostEdit);
             ((ViewGroup) mPortEdit.getParent()).removeView(mPortEdit);
+
+            ((ViewGroup) passwordLabel.getParent()).removeView(passwordLabel);
+            ((ViewGroup) mPasswordEdit.getParent()).removeView(mPasswordEdit);
         }
 
         // Fixes issues with text colour on light themes with pre-honeycomb devices.
