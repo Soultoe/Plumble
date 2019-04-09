@@ -21,6 +21,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -187,8 +191,17 @@ public class ServerEditFragment extends DialogFragment {
         if (username.equals(""))
             username = mUsernameEdit.getHint().toString();
 
-        if (name.equals(""))
-            name = "Class of "+username;
+        if (name.equals("")) {
+
+            WifiManager wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            WifiInfo info = wifiManager.getConnectionInfo ();
+            String ssid  = info.getSSID();
+
+            if(ssid.equals("<unknown ssid>"))
+                name = username;
+            else
+                name = ssid.replace("\"","");
+        }
 
         if (host.equals(""))
             host = mHostEdit.getHint().toString();
